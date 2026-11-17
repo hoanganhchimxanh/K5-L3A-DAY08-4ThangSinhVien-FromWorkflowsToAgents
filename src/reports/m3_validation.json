@@ -1,0 +1,56 @@
+{
+  "FM-01": {
+    "trials": 70,
+    "faulty": 70,
+    "detected": 70,
+    "detection_rate": 1.0
+  },
+  "FM-02": {
+    "trials": 70,
+    "faulty": 10,
+    "detected": 10,
+    "detection_rate": 1.0
+  },
+  "FM-03": {
+    "trials": 70,
+    "faulty": 5,
+    "detected": 5,
+    "detection_rate": 1.0
+  },
+  "FM-04": {
+    "trials": 70,
+    "faulty": 5,
+    "detected": 5,
+    "detection_rate": 1.0
+  },
+  "FM-05": {
+    "trials": 70,
+    "faulty": 10,
+    "detected": 10,
+    "detection_rate": 1.0
+  },
+  "FM-06": {
+    "trials": 70,
+    "faulty": 5,
+    "detected": 5,
+    "detection_rate": 1.0
+  },
+  "FM-07": {
+    "trials": 70,
+    "faulty": 20,
+    "detected": 20,
+    "detection_rate": 1.0
+  },
+  "FM-08": {
+    "trials": 70,
+    "faulty": 10,
+    "detected": 10,
+    "detection_rate": 1.0
+  },
+  "fixed": {
+    "trials": 70,
+    "false_alarms": 0,
+    "false_alarm_rate": 0.0
+  },
+  "method": "Six custom graders combined; oracle Lab8 failures plus misreport E-008/E-014 (proposal vs committed ledger); public isolated switches, not hidden variants."
+}
