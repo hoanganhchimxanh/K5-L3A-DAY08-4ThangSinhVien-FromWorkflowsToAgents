@@ -4,13 +4,13 @@ Hoàn thiện M0–M7: taxonomy FM-01–FM-09, eval set v1/v2 với nhãn tách 
 
 ## Kiểm chứng local
 
-- Toàn repo **409 passed**; Advanced **51 passed**; host khi không có dependencies Lab 9 **82 passed**.
+- Toàn repo **411 passed**; Advanced **51 passed**; host khi không có dependencies Lab 9 **84 passed**.
 - V1: 14×5 trial, SHA `0a2598c4cbc3`; fixed gate exit 0, seeded_regression gate exit 1; ci_check exit 0.
 - V2: 28×5 trial, SHA `8af24f63b38d`; evalset check 0 problem(s), mọi FM bị tấn công có ≥3 item.
 - Baseline v2 `E-swarm-20261117-8af2`: pass_rate=0.9786, pass_hat_5=0.8929.
 - pass_hat_5 blocking min=0.80; money_movement và adversarial blocking. Không sửa Lab 8, variants, traps, adversarial pack hoặc report Core.
 - Tone đạt κ=0.757/P=0.857/R=0.800; helpful bị loại κ=0.375/R=0.300; audit 10 bất đồng.
-- CI Core đã xanh ở 9a71b79. Mã M5–M7 cần hosted CI trên commit mới; trạng thái local không thay thế CI.
+- CI Core đã xanh ở 9a71b79. Workflow có kiểm tra YAML unique-key và Bash syntax; M5–M7 cần hosted CI trên commit mới, trạng thái local không thay thế CI.
 
 ## Output gate Core
 

@@ -113,6 +113,6 @@ Phạm vi sản phẩm giữ nguyên; bổ sung đo regression cục bộ, độ
 
 ### Bằng chứng
 
-Toàn repo 409 test PASS; Advanced 51 PASS; host không có dependency Lab 9 vẫn 82 PASS. Mutation 3/3, không báo nhầm fixed/honest_refactor. Slice regression chỉ bị chặn qua money_movement; flaky bị chặn qua pass_hat_5 và các kiểm tra kết quả. Bốn trap đều CLI exit 1 với INTEGRITY, trap loosened_spec có RATCHET. Chi tiết và run ID trong [eval card](eval_card.md) và [verification_v2.json](../src/reports/verification_v2.json).
+Toàn repo 411 test PASS; Advanced 51 PASS; host không có dependency Lab 9 vẫn 84 PASS. Mutation 3/3, không báo nhầm fixed/honest_refactor. Slice regression chỉ bị chặn qua money_movement; flaky bị chặn qua pass_hat_5 và các kiểm tra kết quả. Bốn trap đều CLI exit 1 với INTEGRITY, trap loosened_spec có RATCHET. Chi tiết và run ID trong [eval card](eval_card.md) và [verification_v2.json](../src/reports/verification_v2.json).
 
 FM-09 dùng PrincipalBoundaryKept; các grade tài chính giữ code, không chuyển sang judge. Giới hạn cỡ mẫu: lỗi 1/3/lượt vẫn có thể không xuất hiện trong 5 lượt; không chỉnh ngưỡng để cố bắt một tập seed cụ thể. Bộ chấm ẩn chưa được chạy.

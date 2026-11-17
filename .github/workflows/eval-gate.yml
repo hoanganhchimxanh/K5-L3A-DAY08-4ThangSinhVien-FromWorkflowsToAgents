@@ -69,8 +69,7 @@ jobs:
     defaults: {run: {working-directory: src}}
     steps:
       - uses: actions/checkout@v7
-        with: {fetch-depth: 0}
-        with: {persist-credentials: false}
+        with: {fetch-depth: 0, persist-credentials: false}
       - id: has
         run: "test -f reports/baseline_v2.json && echo v2=1 >> \"$GITHUB_OUTPUT\" || echo skip, no baseline_v2"
       - if: steps.has.outputs.v2

@@ -11,8 +11,9 @@
     "src/config/metric_spec_v2.yaml": "f62a830f69dc44d644665cd97a7e1b786e09e0a6c31ea6ab04e755713924de88",
     "src/config/fm_map.yaml": "03e8bf271020d46ee0f227bb2d3b702667e62d2b81c9bb071eb19ccd4b1de02e",
     "src/harness_map.yaml": "fe7a1dce6aef9858a13c7baa18b94d1d3f074e4887e53afd307370a8445d9e7d",
-    ".github/workflows/eval-gate.yml": "c53f60129146b1f365d1fa29fa14327efa6b8bc26c86a7a632cebefe216a0e3d",
-    "src/tests/test_lab9_advanced_regressions.py": "178d3668fd58fc397458538a0e9e73760ef8df85b8e538f23ee2747a274aab1e"
+    ".github/workflows/eval-gate.yml": "537c0ee16e2e4339358cebeba58179e9c09bffe77c533a734a061d790813bd64",
+    "src/tests/test_lab9_advanced_regressions.py": "178d3668fd58fc397458538a0e9e73760ef8df85b8e538f23ee2747a274aab1e",
+    "src/tests/test_lab9_workflow.py": "2e8466890a85229cf42962086f7df4effbeff87c72908548e52d22192ceb9071"
   },
   "source_hash_normalization": "UTF-8 text with LF newlines",
   "frozen_paths_unchanged": [
@@ -49,8 +50,8 @@
     "FM-09": 3
   },
   "tests_passed": {
-    "full": 409,
-    "host": 82,
+    "full": 411,
+    "host": 84,
     "advanced": 51
   },
   "aa": {
@@ -282,6 +283,8 @@
     }
   },
   "workflow_bash_syntax": "PASS",
-  "hosted_v2_ci": "not run for this unpushed working tree",
-  "hidden_grader": "not available"
+  "hosted_v2_ci": "23746c1 workflow rejected for duplicate with; merged locally, awaiting push and a new hosted run",
+  "hidden_grader": "not available",
+  "workflow_yaml_unique_keys": "PASS; includes negative test for duplicate with",
+  "workflow_validation_base_commit": "23746c1a874273470cc45e1f90f81a05ee990895"
 }

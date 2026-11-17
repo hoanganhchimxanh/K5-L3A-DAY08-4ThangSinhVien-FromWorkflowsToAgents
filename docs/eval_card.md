@@ -109,11 +109,11 @@ Output chi tiết: [traps_v2.txt](../src/reports/traps_v2.txt) và `reports/trap
 
 ## Test và trạng thái CI
 
-- Toàn repo: **409 passed** — [tests_full_v2.txt](../src/reports/tests_full_v2.txt).
+- Toàn repo: **411 passed** — [tests_full_v2.txt](../src/reports/tests_full_v2.txt).
 - Lệnh Advanced của workflow: **51 passed** — [tests_advanced_v2.txt](../src/reports/tests_advanced_v2.txt).
-- Host gate với dependency Lab 9 bị chặn: **82 passed** — [tests_host_v2.txt](../src/reports/tests_host_v2.txt). Import tùy chọn chỉ chạy khi test được chọn.
+- Host gate với dependency Lab 9 bị chặn: **84 passed** — [tests_host_v2.txt](../src/reports/tests_host_v2.txt). Import tùy chọn chỉ chạy khi test được chọn.
 - Cả v1/v2 evalset check 0 problem(s); baseline v2 so chính nó exit 0; report đều đủ 140 dòng, evaluator_failures rỗng.
-- [Core CI ở 9a71b79](https://github.com/hoanganhchimxanh/K5-L3A-DAY08-4ThangSinhVien-FromWorkflowsToAgents/actions/runs/44069768374/job/133992950382) đã xanh. Mã M5–M7 hiện chưa push nên **chưa có kết quả hosted CI v2** cho bản này.
+- Core CI ở 9a71b79 đã xanh. Workflow tại 23746c1 bị GitHub từ chối do khóa with trùng; đã gộp checkout options và thêm test unique-key cho YAML. Bản sửa đạt toàn bộ test và Bash syntax local, cần push để xác nhận hosted CI v2.
 - Workflow v2 sẽ chạy Advanced tests, evalset check, mutation, A/A và traps khi baseline_v2 được commit. Khi base commit có spec v2, workflow lấy spec từ commit đó để kiểm ratchet; PR khởi tạo v2 chưa có spec v2 trên base thì ghi rõ bootstrap này.
 
 ## Gate owner, pilot và giới hạn
