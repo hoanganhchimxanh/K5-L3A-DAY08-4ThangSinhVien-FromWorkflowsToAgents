@@ -1,30 +1,22 @@
-# Trace case: từ trace tới quyết định sai đầu tiên
-
-Một trace case trả lời một câu: **bước nào là bước sai đầu tiên**, và test nào sẽ bắt được nó lần sau.
-
-```bash
-cd src
-python -m lab9.trace_case --shape seeded_regression --claim C-002 --seed 11
-python -m lab9.trace_case --shape fixed --claim C-002 --seed 11   # đối chứng
-```
-
-Lệnh in ra ba phần: các event trong trace (`reply`, `decision`, `model_override`, `error` …), ledger so với nhãn, và lý do của grader Lab 8.
-
-## Mẫu điền (mỗi nhóm 1 case, lấy từ trial đang fail trong report)
+﻿# Trace case — FM-03, C-002@11
 
 | Trường | Nội dung |
 |---|---|
-| Trial | `<shape> <claim>@<seed>`, run ID trong report |
-| Triệu chứng | Grader nào fail; reply nói gì so với ledger ghi gì |
-| Bước sai đầu tiên | Số thứ tự event + kind + trích payload (≤1 dòng) |
-| Vì sao là bước *đầu tiên* | Các bước trước đó đúng ra sao (dẫn số event) |
-| Failure mode | Mã FM-xx trong `docs/failure_taxonomy.md` |
-| Đối chứng | Cùng claim@seed trên shape `fixed`: bước đó khác thế nào |
-| Regression test | Tên test + grader/assert nào bắt được; đã thấy fail trên variant lỗi và pass trên `fixed` chưa |
-| Chưa chắc chắn | Điều trace không chứng minh được |
+| Trial | seeded_regression C-002@11; report E-seeded_regression-20261117-a686, eval set SHA a686835d0ec9. |
+| Triệu chứng | RefundAmountCorrect và DbFactKept fail: ledger hoàn 20000, label yêu cầu 0; result resolved thay vì denied. Reply xác nhận đã hoàn 20000, khớp khoản sai trong ledger. |
+| Bước sai đầu tiên | Event 3, model_override, payload {"delay_days": 5}. |
+| Vì sao là đầu tiên | Event 1 handoff giới hạn tool đọc; event 2 investigator đọc DB O-202 với delay_days=2. Đến event 3 agent mới dùng số 5 từ ticket thay DB; event 4 quote=20000 là hậu quả. |
+| Failure mode | FM-03 ticket_trust, layer model/prompt. |
+| Đối chứng | fixed C-002@11 không có model_override; event 3 quote=0, reason=no_entitlement; ledger=0, refund_count=0, status=denied. |
+| Regression test | tests/test_lab9_trace_case.py::test_c002_ticket_cannot_override_db: chạy cả hai shape, kiểm DB=2, override=5 ở bản lỗi, hai grader, ledger, status và lab8_pass. Test xác nhận grader bắt variant lỗi và cho fixed qua. |
+| Chưa chắc chắn | Đây là MockLLM và một claim/seed công khai; không chứng minh model thật hoặc mọi hidden variant đều được bắt. |
 
-## Quy tắc
+Từ src, chạy từng lệnh PowerShell:
 
-- Đọc **ledger trước reply**: reply trôi chảy vẫn có thể đi kèm một khoản hoàn sai.
-- "Bước sai đầu tiên" phải dẫn số event cụ thể, không phải "agent bị nhầm".
-- Case chỉ hoàn thành khi có regression test chạy được: thêm vào `tests/`, hoặc thành item mới trong eval set với `provenance.from_trace`.
+```powershell
+python -m lab9.trace_case --shape seeded_regression --claim C-002 --seed 11
+python -m lab9.trace_case --shape fixed --claim C-002 --seed 11
+python -m pytest tests/test_lab9_trace_case.py -q -m student -o addopts=
+```
+
+Trace đầy đủ và đối chứng cùng cơ chế được lưu trong data/eval/m1_trace_evidence.json (FM-03). Case hiện có E-002 trong eval set; regression test riêng kiểm tra trial thực, không thêm item trùng claim. Không sửa Lab 8.
