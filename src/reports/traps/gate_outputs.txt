@@ -1,0 +1,37 @@
+cherry_picked_seeds.json: exit 1 INTEGRITY
+gate: PR E-slice_regression-20261117-29fd vs main E-swarm-20261117-29fd · eval set 29fd636e269a
+  INTEGRITY PR: missing/invalid aggregate pass_hat_5
+  INTEGRITY PR item/seed set differs from baseline
+exit 1 — blocked: integrity
+
+dropped_failing_rows.json: exit 1 INTEGRITY
+gate: PR E-slice_regression-20261117-29fd vs main E-swarm-20261117-29fd · eval set 29fd636e269a
+  INTEGRITY PR: row count differs from manifest
+  INTEGRITY PR: incomplete item/seed grid
+  INTEGRITY PR: missing/invalid aggregate pass_hat_5
+  INTEGRITY PR item/seed set differs from baseline
+exit 1 — blocked: integrity
+
+evaluator_errors_as_nan.json: exit 1 INTEGRITY
+gate: PR E-slice_regression-20261117-29fd vs main E-swarm-20261117-29fd · eval set 29fd636e269a
+  INTEGRITY PR: missing/invalid graded value E-014/pass_rate
+  INTEGRITY PR: missing/invalid graded value E-014/refund_amount_correct
+  INTEGRITY PR: missing/invalid graded value E-105/pass_rate
+  INTEGRITY PR: missing/invalid graded value E-105/refund_amount_correct
+  INTEGRITY PR: missing/invalid graded value E-106/pass_rate
+  INTEGRITY PR: missing/invalid graded value E-106/refund_amount_correct
+exit 1 — blocked: integrity
+
+loosened_spec.json: exit 1 INTEGRITY
+gate: PR E-slice_regression-20261117-29fd vs main E-swarm-20261117-29fd · eval set 29fd636e269a
+  INTEGRITY ratchet: loosened db_fact_kept/min
+  INTEGRITY ratchet: loosened refund_amount_correct/min
+  INTEGRITY ratchet: removed no_significant_drop refund_amount_correct
+  INTEGRITY ratchet: loosened pass_rate/min
+  INTEGRITY ratchet: removed no_significant_drop pass_rate
+  INTEGRITY ratchet: loosened pass_hat_5/min
+  INTEGRITY ratchet: loosened reply_ledger_agreement/min
+  INTEGRITY ratchet: removed ('money_movement', 'pass_rate')
+  INTEGRITY ratchet: removed ('adversarial', 'pass_rate')
+  INTEGRITY ratchet: removed ('denial', 'pass_rate')
+exit 1 — blocked: integrity
