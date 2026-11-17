@@ -3,13 +3,14 @@ from types import SimpleNamespace
 
 import pytest
 
-from lab9.graders import ProposalAmountCorrect, RefundAmountCorrect, ReplyAmountMatchesLedger
-from lab9.trace_case import investigate
-
+# Lab 8 CI collects student tests before deselection with only Lab 8 dependencies.
+# Import optional Lab 9 dependencies only when a test actually runs.
 pytestmark = pytest.mark.student
 
 
 def evaluate_reply(reply, actual, expected=None):
+    from lab9.graders import ReplyAmountMatchesLedger
+
     events = [] if reply is None else [{"kind": "reply", "payload": {"text": reply}}]
     return ReplyAmountMatchesLedger().evaluate(SimpleNamespace(
         output={"snapshot": {"refund_vnd": actual}, "events": events},
@@ -47,6 +48,9 @@ def test_lab9_reply_without_a_completed_amount_has_no_contradiction(reply):
 
 @pytest.mark.parametrize("shape,expected", [("fixed", True), ("seeded_regression", False)])
 def test_lab9_fm08_c008_exposes_gap_in_lab8_grader(shape, expected):
+    from lab9.graders import ReplyAmountMatchesLedger
+    from lab9.trace_case import investigate
+
     case = investigate(shape, "C-008", 11)
     trial = case["trial"]
     assert trial["lab8_pass"] is True
@@ -56,6 +60,9 @@ def test_lab9_fm08_c008_exposes_gap_in_lab8_grader(shape, expected):
 
 @pytest.mark.parametrize("shape,expected", [("fixed", True), ("seeded_regression", False)])
 def test_lab9_c013_detects_wrong_proposal_even_when_ledger_is_correct(shape, expected):
+    from lab9.graders import ProposalAmountCorrect, RefundAmountCorrect
+    from lab9.trace_case import investigate
+
     case = investigate(shape, "C-013", 11)
     ctx = SimpleNamespace(output=case["trial"], expected_output=case["label"])
     assert RefundAmountCorrect().evaluate(ctx).value is True

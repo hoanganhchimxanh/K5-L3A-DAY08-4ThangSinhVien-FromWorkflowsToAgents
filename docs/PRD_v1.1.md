@@ -70,7 +70,7 @@ Chạy từ `src`:
 - Tác giả PR chịu trách nhiệm điều tra khi gate exit 1. Đầu mối đề xuất: Nguyễn Tuấn Hiếu theo vai trò lead tổng hợp trong TEAM.md; reviewer xác nhận phân công trên PR.
 - Gate exit 1 thì không merge. Không có waiver nào được cấp trong tài liệu này; không sửa report tay, không nới ngưỡng cùng version, không sửa variant/trap để qua bài.
 - Kết quả local: fixed exit 0; seeded_regression exit 1 với pass_rate Δ=-0.271, CI [-0.500, -0.057], và bị chặn ở refund_amount_correct, pass_rate, reply_amount_matches_ledger, proposal_amount_correct. Swarm lặp lại và ci_check đều exit 0.
-- Job GitHub Actions `eval-gate` phải xanh trước khi nộp. Trạng thái hiện tại mới xác nhận local, chưa có URL run CI từ GitHub.
+- Job GitHub Actions `eval-gate` phải xanh trước khi nộp. [Core gate](https://github.com/hoanganhchimxanh/K5-L3A-DAY08-4ThangSinhVien-FromWorkflowsToAgents/actions/runs/44068603881/job/133988804753) đã success tại commit e00f055 trên PR #1. [CI Lab 8](https://github.com/hoanganhchimxanh/K5-L3A-DAY08-4ThangSinhVien-FromWorkflowsToAgents/actions/runs/44068603732) còn lỗi pytest; bản sửa import test đã đạt host 82 passed và Core 28 passed ở local, cần push và xác nhận CI chạy lại.
 
 ## 6. Rủi ro và bằng chứng còn thiếu
 

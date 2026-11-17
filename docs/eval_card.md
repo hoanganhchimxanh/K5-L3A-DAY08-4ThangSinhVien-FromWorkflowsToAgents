@@ -59,7 +59,7 @@ Gate cho `fixed` qua (exit 0). Gate chặn `seeded_regression` (exit 1) ở: ref
 - Các report đều đủ 70 dòng và không có evaluator failures. Swarm chạy lại khớp baseline, gate exit 0 và `lab9.ci_check` exit 0.
 - Đầu mối xử lý gate đề xuất: Nguyễn Tuấn Hiếu, lead tổng hợp theo [TEAM.md](../TEAM.md); reviewer của PR xác nhận phân công và kết quả trước merge.
 - Gate exit 1: tác giả PR tìm trial lỗi và bước sai đầu tiên, sửa grader/code Lab 9 phù hợp rồi sinh lại report. Giữ nguyên Lab 8, các variant/trap và các ngưỡng đã chốt trên cùng eval-set version.
-- GitHub Actions chưa được chạy trong phiên local này. Cần push `starter/d09`, mở PR vào `main` và kiểm tra job `eval-gate`.
+- GitHub Actions: [job eval-gate](https://github.com/hoanganhchimxanh/K5-L3A-DAY08-4ThangSinhVien-FromWorkflowsToAgents/actions/runs/44068603881/job/133988804753) đã success ở commit e00f055 của PR #1. [CI Lab 8](https://github.com/hoanganhchimxanh/K5-L3A-DAY08-4ThangSinhVien-FromWorkflowsToAgents/actions/runs/44068603732) lỗi tại pytest; đã tái hiện collection error khi không cài dependency Lab 9. Bản sửa dời import trong hai test đã kiểm chứng local: host gate 82 passed với dependency Lab 9 bị chặn, Core 28 passed. Cần commit/push bản sửa và chờ hosted CI chạy lại. Job v2 hiện skip các bước đánh giá vì chưa có baseline_v2, không chứng minh Advanced đã đạt.
 
 ## Phạm vi và giới hạn
 

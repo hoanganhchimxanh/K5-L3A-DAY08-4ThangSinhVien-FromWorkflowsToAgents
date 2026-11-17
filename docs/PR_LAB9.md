@@ -11,7 +11,7 @@ Thực hiện taxonomy có bằng chứng trace, eval set và nhãn tách riêng
 - Tone đạt κ=0.757, P=0.857, R=0.8; helpful bị loại, κ=0.375, R=0.3.
 - Fixed gate exit 0; seeded_regression gate exit 1, có pass_rate trong danh sách chặn.
 - Swarm chạy lại khớp baseline; gate và ci_check exit 0.
-- GitHub Actions: cần kiểm tra job eval-gate sau khi mở PR; chưa ghi nhận kết quả hosted CI trong bằng chứng local.
+- GitHub Actions: [eval-gate](https://github.com/hoanganhchimxanh/K5-L3A-DAY08-4ThangSinhVien-FromWorkflowsToAgents/actions/runs/44068603881/job/133988804753) đã success ở commit e00f055. CI Lab 8 tại commit đó lỗi collection do dependency Lab 9 được import sớm; bản sửa lazy import đã kiểm chứng local: host gate 82 passed và Core 28 passed, cần push và xác nhận hosted CI chạy lại. Các bước Advanced của job v2 hiện bị skip vì chưa có baseline v2.
 
 ## Output gate của seeded_regression
 
