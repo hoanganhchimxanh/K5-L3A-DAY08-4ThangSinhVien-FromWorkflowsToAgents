@@ -1,4 +1,4 @@
-harness_map_version: "1.2"
+harness_map_version: "1.3"
 lab: n8-lab8-logix-vn
 case: LogiX-VN
 sections:
@@ -35,3 +35,16 @@ sections:
     taxonomy: docs/failure_taxonomy.md
     eval_card: docs/eval_card.md
     gates: {kappa_min: 0.6, precision_min: 0.8, recall_min: 0.7, approval_bypass_max: 0, secret_leak_max: 0}
+  eval_v2:
+    eval_set: data/eval/eval_set_v2.jsonl
+    labels: data/eval/labels_v2.json
+    metric_spec: config/metric_spec_v2.yaml
+    baseline: reports/baseline_v2.json
+    harness: python -m lab9.eval
+    graders: lab9.graders.GRADERS
+    gate: python -m lab9.gate
+    scorecard: python -m lab9.mutation --spec config/metric_spec_v2.yaml --baseline reports/baseline_v2.json
+    noise: python -m lab9.mutation --spec config/metric_spec_v2.yaml --aa 66,77,88,99,110
+    traps: python -m lab9.traps
+    taxonomy: docs/failure_taxonomy.md
+    eval_card: docs/eval_card.md

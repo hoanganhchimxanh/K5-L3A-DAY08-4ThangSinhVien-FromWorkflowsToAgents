@@ -1,35 +1,71 @@
-# Lab 9 Core: evaluation và gate chặn regression
+# Lab 9: complete Core, Advanced and Expert evaluation gates
 
-Bổ sung đánh giá trên 14 item × 5 seed để phân biệt bản sửa đúng với hồi quy về quyết định và số tiền hoàn. Baseline swarm có pass_rate 0.9857; fixed đạt 1.0 và qua gate; seeded_regression còn 0.7143 và bị chặn.
-
-Thực hiện taxonomy có bằng chứng trace, eval set và nhãn tách riêng, calibration hai judge, grader code cho approval/ledger/proposal/reply, paired bootstrap và section eval trong harness map. Package Lab 8 giữ nguyên. Eval set SHA `0a2598c4cbc3`, metric spec 1.1; số liệu và run ID trong [eval card](https://github.com/hoanganhchimxanh/K5-L3A-DAY08-4ThangSinhVien-FromWorkflowsToAgents/blob/starter/d09/docs/eval_card.md), yêu cầu release trong [PRD v1.1](https://github.com/hoanganhchimxanh/K5-L3A-DAY08-4ThangSinhVien-FromWorkflowsToAgents/blob/starter/d09/docs/PRD_v1.1.md).
+Hoàn thiện M0–M7: taxonomy FM-01–FM-09, eval set v1/v2 với nhãn tách riêng, calibration judge, grader approval/ledger/proposal/reply/principal, paired bootstrap, slice gate, pass@k/pass^k và integrity/ratchet.
 
 ## Kiểm chứng local
 
-- Core: 28 passed; evalset CLI: 3 passed; evalset check: 0 problem(s).
-- M3 detection 100%, false alarms 0% trên public v1.
-- Tone đạt κ=0.757, P=0.857, R=0.8; helpful bị loại, κ=0.375, R=0.3.
-- Fixed gate exit 0; seeded_regression gate exit 1, có pass_rate trong danh sách chặn.
-- Swarm chạy lại khớp baseline; gate và ci_check exit 0.
-- GitHub Actions: [eval-gate](https://github.com/hoanganhchimxanh/K5-L3A-DAY08-4ThangSinhVien-FromWorkflowsToAgents/actions/runs/44068603881/job/133988804753) đã success ở commit e00f055. CI Lab 8 tại commit đó lỗi collection do dependency Lab 9 được import sớm; bản sửa lazy import đã kiểm chứng local: host gate 82 passed và Core 28 passed, cần push và xác nhận hosted CI chạy lại. Các bước Advanced của job v2 hiện bị skip vì chưa có baseline v2.
+- Toàn repo **409 passed**; Advanced **51 passed**; host khi không có dependencies Lab 9 **82 passed**.
+- V1: 14×5 trial, SHA `0a2598c4cbc3`; fixed gate exit 0, seeded_regression gate exit 1; ci_check exit 0.
+- V2: 28×5 trial, SHA `8af24f63b38d`; evalset check 0 problem(s), mọi FM bị tấn công có ≥3 item.
+- Baseline v2 `E-swarm-20261117-8af2`: pass_rate=0.9786, pass_hat_5=0.8929.
+- pass_hat_5 blocking min=0.80; money_movement và adversarial blocking. Không sửa Lab 8, variants, traps, adversarial pack hoặc report Core.
+- Tone đạt κ=0.757/P=0.857/R=0.800; helpful bị loại κ=0.375/R=0.300; audit 10 bất đồng.
+- CI Core đã xanh ở 9a71b79. Mã M5–M7 cần hosted CI trên commit mới; trạng thái local không thay thế CI.
 
-## Output gate của seeded_regression
+## Output gate Core
 
-Run `E-seeded_regression-20261117-0a25` so với baseline `E-swarm-20261117-0a25`:
+pass_rate Δ=-0.271, CI 95% [-0.500, -0.057]: BLOCK.
 
 ```text
-  approval_bypass        0        {"max": 0}                                                            ok
-  secret_leak            0        {"max": 0}                                                            ok
-  db_fact_kept           0.9286   {"min": 0.95}                                                         warn
-  refund_amount_correct  0.8571   {"min": 0.95, "no_significant_drop": true} Δ -0.129 CI [-0.315, +0.000] BLOCK
-  pass_rate              0.7143   {"min": 0.85, "no_significant_drop": true} Δ -0.271 CI [-0.500, -0.057] BLOCK
-  pass_5                 0.7143   {"min": 0.8}                                                          warn
-  cost_per_success       81.202   {"max_increase": 0.1}                                                 warn
-  reply_amount_matches_ledger 0.7857   {"min": 1.0, "no_significant_drop": true} Δ -0.214 CI [-0.429, +0.000] BLOCK
-  proposal_amount_correct 0.7857   {"min": 0.95, "no_significant_drop": true} Δ -0.200 CI [-0.414, +0.000] BLOCK
 exit 1 — blocked: refund_amount_correct, pass_rate, reply_amount_matches_ledger, proposal_amount_correct
 ```
 
-## Giới hạn
+## Mutation scorecard v2
 
-MockLLM, 14 item, judge replay công khai; chưa đo model/người dùng thật. Parser reply theo mẫu harness; baseline swarm không có reply event. Core chưa có slice gate và integrity/ratchet Advanced/Expert. Baseline hiện nằm trên nhánh PR, cần reviewer xác nhận trước khi đưa vào main. Chi tiết ở eval card.
+```text
+fixed                expect merge got merge ok
+  honest_refactor      expect merge got merge ok
+  seeded_regression    expect block got block ok          refund_amount_correct, proposal_amount_correct, pass_rate, reply_amount_matches_ledger, pass_hat_5, slice:money_movement/pass_rate, slice:adversarial/pass_rate, slice:denial/pass_rate
+  slice_regression     expect block got block ok          slice:money_movement/pass_rate
+  flaky_regression     expect block got block ok          proposal_amount_correct, pass_rate, pass_hat_5, slice:money_movement/pass_rate
+mutation score 3/3 · false alarms 0
+```
+
+## A/A — seeds chuẩn so 66/77/88/99/110
+
+```text
+metric                 spec seeds  alt seeds    delta
+approval_bypass                 0          0  +0.0000
+secret_leak                     0          0  +0.0000
+db_fact_kept               0.9786     0.9786  +0.0000
+refund_amount_correct      0.9786     0.9786  +0.0000
+proposal_amount_correct     0.9786     0.9786  +0.0000
+pass_rate                  0.9786     0.9786  +0.0000
+reply_amount_matches_ledger        1.0        1.0  +0.0000
+principal_boundary_kept        1.0        1.0  +0.0000
+pass_5                     0.8929     0.8929  +0.0000
+pass_at_1                  0.9786     0.9786  +0.0000
+pass_hat_1                 0.9786     0.9786  +0.0000
+pass_at_3                     1.0        1.0  +0.0000
+pass_hat_3                 0.9357     0.9357  +0.0000
+pass_at_5                     1.0        1.0  +0.0000
+pass_hat_5                 0.8929     0.8929  +0.0000
+cost_per_success          50.8077    50.8077  +0.0000
+```
+
+## Bốn trap chạy gate độc lập
+
+```text
+evaluator_errors_as_nan: exit 1 — blocked: integrity
+dropped_failing_rows: exit 1 — blocked: integrity
+cherry_picked_seeds: exit 1 — blocked: integrity
+loosened_spec: exit 1 — blocked: integrity
+```
+
+Trap loosened_spec có lý do RATCHET; các trap khác bị chặn do thiếu/đổi grid, grade lỗi và tính nhất quán. Log gốc nằm trong reports/trap_*_gate.txt. Slice regression chỉ bị chặn qua slice money_movement. Test bổ sung bao phủ dòng trùng, evaluator_failures trên report xanh, sửa aggregate, đổi slice, lỗi im lặng và tên variant mới.
+
+## Tài liệu và giới hạn
+
+docs/eval_card.md, docs/PRD_v1.1.md, docs/failure_taxonomy.md, docs/judge_audit.md, docs/trace_case.md; số liệu máy đọc được trong src/reports/verification_v2.json.
+
+MockLLM, 28 item và judge replay công khai chưa đại diện model/người dùng thật. Năm seed không bảo đảm bắt lỗi 1/3/lượt ổn định. Parser reply theo mẫu harness; integrity không thay thế nguồn report đáng tin. Anchor key/bộ chấm ẩn chưa được xác nhận; không cam kết điểm tuyệt đối.
